@@ -60,7 +60,7 @@ export default function Profile() {
                 />
                 <div>
                 <div>
-                <button className="button"  type="submit">Consultar</button>
+                <button className="button" type="submit">Consultar</button>
                 </div>
                 <Link className="button" to="/">Cadastrar Novo</Link>
                 </div>
@@ -83,7 +83,15 @@ export default function Profile() {
                                 <div>
                                     <strong>CEP:{endereco.cep}</strong>
                                     <br></br>
-                                    <strong>RUA:{endereco.rua}</strong>
+                                    <strong>Rua:{endereco.rua}</strong>
+                                    <br></br>
+                                    <strong>Número:{endereco.numero}</strong>
+                                    <br></br>
+                                    <strong>Bairro:{endereco.bairro}</strong>
+                                    <br></br>
+                                    <strong>Cidade:{endereco.cidade}</strong>
+                                    <br></br>
+                                    <strong>Estado:{endereco.uf}</strong>
                                     <br></br>
                                 </div>
                             )}
@@ -103,12 +111,25 @@ export default function Profile() {
                             <br></br>
                             {user.endereco.map((endereco) =>
                                 <div>
+                                <div>
                                     <strong>CEP:{endereco.cep}</strong>
                                     <br></br>
-                                    <strong>RUA:{endereco.rua}</strong>
+                                    <strong>Rua:{endereco.rua}</strong>
+                                    <br></br>
+                                    <strong>Número:{endereco.numero}</strong>
+                                    <br></br>
+                                    <strong>Bairro:{endereco.bairro}</strong>
+                                    <br></br>
+                                    <strong>Cidade:{endereco.cidade}</strong>
+                                    <br></br>
+                                    <strong>Estado:{endereco.uf}</strong>
                                     <br></br>
                                 </div>
+                                </div>
                             )}
+                            <button onClick={() => { deleteUser(user.cpf) }}>
+                            <FiTrash2 size={20}  color="#a8a8b3"></FiTrash2>
+                            </button>
                         </li>
                     }
                 </ul>
