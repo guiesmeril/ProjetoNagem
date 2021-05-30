@@ -1,5 +1,6 @@
-import React, { useState , useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import { FiPower, FiTrash2 } from 'react-icons/fi';
 
 import './styles.css';
@@ -7,72 +8,111 @@ import '../../global.css';
 import logo from '../../assets/logo.png';
 
 export default function Profile() {
-    const [listUsers,setlistUsers]= useState([]);
-    useEffect (()=>{
+    const [listUsers, setlistUsers] = useState([]);
+    const [userSelected, setUserSelected] = useState('');
+    const [user, setUser] = useState();
+    const history = useHistory();
 
+
+    useEffect(() => {
         const localStorageUsers = JSON.parse(localStorage.
             getItem('users'))
-        if (localStorageUsers != null)
-             setlistUsers(localStorageUsers)
+        if (localStorageUsers != null) {
+            setlistUsers(localStorageUsers)
+        }
 
-    },[])
-   
-    
+    }, [])
+
+    function buscarUser(e) {
+        e.preventDefault();
+        const user = listUsers.find(item => item.cpf == userSelected);
+        if (!user) {
+            return alert('Usuario não encontrado!')
+        }
+        setUser(user);
+
+    }
+
+    function deleteUser(cpf) {
+        let newlistUsers = returnNewArrayUsers(cpf)
+        setlistUsers(newlistUsers)
+        localStorage.setItem('users', JSON.stringify(newlistUsers))
+    }
+
+    function returnNewArrayUsers(cpf) {
+        return listUsers.filter(user => user.cpf !== cpf)
+    }
+
+    function resetPage() {
+        setUser(undefined)
+     }
+ 
     return(
         <div className="profile-container">
+            <form onSubmit={buscarUser}>
             <header>
                 <img src={ logo } alt="Nagem-List" />
 
-                <input placeholder="Consultar pelo CPF" />
+                <input placeholder="Consultar pelo CPF"
+                        name="cpf"
+                        value={userSelected}
+                        onChange={e => setUserSelected(e.target.value)} 
+                />
                 <div>
-                <Link className="button">Procurar</Link>
-                
+                <div>
+                <button className="button"  type="submit">Consultar</button>
+                </div>
                 <Link className="button" to="/">Cadastrar Novo</Link>
                 </div>
             </header>
-            
+
+            </form>
             <h1>Endereços Cadastrados</h1>
 
-            <ul>
+            <button className="button2" onClick={() => { resetPage() }}>Recuperar Endereços</button>
 
-                 {listUsers.map((users,index) => (
-
-
-                    <li key={users.cpf}>
-                        <strong>DADOS DO ENDEREÇO: </strong>
-
-                        <strong>
-                        Nome: {users.endereco[index].name}, 
-                        CPF: {users.endereco[index].cpf}, 
-                        </strong>
-
-                        <strong>
-                        CEP: {users.endereco[index].cep}, 
-                        RUA: {users.endereco[index].rua},
-                        NUMERO: {users.endereco[index].numero},
-                        BAIRRO: {users.endereco[index].bairro},
-                        CIDADE: {users.endereco[index].cidade},
-                        ESTADO: {users.endereco[index].uf}
-                        </strong>
-
-                        <strong>
-                        CEP: {users.endereco[index].cep}, 
-                        RUA: {users.endereco[index].rua},
-                        NUMERO: {users.endereco[index].numero},
-                        BAIRRO: {users.endereco[index].bairro},
-                        CIDADE: {users.endereco[index].cidade},
-                        ESTADO: {users.endereco[index].uf}
-                        </strong>
-                       
-                        {/** 
-                        <button onClick={() => {deleteUsers(users.cpf) }} type="button">
-                            <FiTrash2 size={20} color="#a8a8b3"></FiTrash2>
-                        </button>
-                        */}
-                    </li>
-
-                ))}
-            </ul>
+            {user == undefined ?
+                <ul>
+                    {listUsers.map((user) => (
+                        <li>
+                            <strong>Nome:{user.name}</strong>
+                            <br></br>
+                            <strong>CPF:{user.cpf}</strong>
+                            <br></br>
+                            {user.endereco.map((endereco) =>
+                                <div>
+                                    <strong>CEP:{endereco.cep}</strong>
+                                    <br></br>
+                                    <strong>RUA:{endereco.rua}</strong>
+                                    <br></br>
+                                </div>
+                            )}
+                            <button onClick={() => { deleteUser(user.cpf) }}>
+                            <FiTrash2 size={20}  color="#a8a8b3"></FiTrash2>
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+                :
+                <ul>
+                    {
+                        <li>
+                            <strong>Nome:{user.name}</strong>
+                            <br></br>
+                            <strong>CPF:{user.cpf}</strong>
+                            <br></br>
+                            {user.endereco.map((endereco) =>
+                                <div>
+                                    <strong>CEP:{endereco.cep}</strong>
+                                    <br></br>
+                                    <strong>RUA:{endereco.rua}</strong>
+                                    <br></br>
+                                </div>
+                            )}
+                        </li>
+                    }
+                </ul>
+            }
 
         </div>
     );
