@@ -17,8 +17,6 @@ export default function Register() {
     const [cidade, setCidade] = useState();
     const [uf, setUf] = useState();
     const [address, setAddress] = useState([]);
-
-
     const history = useHistory();
 
     async function clearInput() {
@@ -59,23 +57,28 @@ export default function Register() {
             getItem('users'))
         if (localStorageUsers != null)
             listUsers = localStorageUsers
-        if (!address) {
+
+
             const dataAddress = [{
-                cep,
-                rua,
-                numero,
-                bairro,
-                cidade,
-                uf
+                cep:cep,
+                rua:rua,
+                numero:numero,
+                bairro:bairro,
+                cidade:cidade,
+                uf:uf
             }]
-            setAddress(dataAddress)
-        }
+            address.push(dataAddress);
+            console.log(dataAddress)
+        
+
         const data = {
             name,
             cpf,
             endereco: address,
         };
+
         listUsers.push(data)
+        
         try {
             localStorage.setItem('users', JSON.stringify(listUsers))
             alert(`Cadastro realizado, com sucesso!`);
@@ -92,7 +95,6 @@ export default function Register() {
             <div className="content">
                 <section>
                 <img src={logo} alt="Nagem" />
-                    <button className="button1" onClick={() => { newAddress() }}  >Novo Endereço</button>
                     <Link className="back-link" to="/Address">
                         <FiArrowLeft size={16} color="#3b5998" />
                         Voltar para Inicio!
@@ -149,6 +151,7 @@ export default function Register() {
                             onChange={e => setUf(e.target.value)}
                             required />
                     </div>
+                    <button className="button1" onClick={() => { newAddress() }}  >Novo Endereço</button>
                     <button className="button" type="submit">Cadastrar</button>
                 </form>
                 
