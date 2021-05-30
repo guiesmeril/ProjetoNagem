@@ -95,7 +95,7 @@ export default function Register() {
                 <img src={logo} alt="Nagem" />
                     <Link className="back-link" to="/Address">
                         <FiArrowLeft size={16} color="#3b5998" />
-                        Voltar para Endereços!
+                        Voltar para Endereços.
                     </Link>
                 </section>
 
