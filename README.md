@@ -1,6 +1,6 @@
 # DesafioNagem
 ![NG1](https://user-images.githubusercontent.com/51000332/120110668-c9a67b80-c144-11eb-9304-1768b4ba1ed0.PNG)
-![NG2](https://user-images.githubusercontent.com/51000332/120110737-23a74100-c145-11eb-8117-96fde23cbe02.PNG)
+![NG2](https://user-images.githubusercontent.com/51000332/120111196-61a56480-c147-11eb-98b0-3684635e94fc.PNG)
 
 Este projeto foi inicializado com o aplicativo [Create React](https://github.com/facebook/create-react-app).
 
