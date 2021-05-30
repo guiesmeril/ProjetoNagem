@@ -59,18 +59,16 @@ export default function Register() {
             listUsers = localStorageUsers
 
 
-            const dataAddress = [{
-                cep:cep,
-                rua:rua,
-                numero:numero,
-                bairro:bairro,
-                cidade:cidade,
-                uf:uf
-            }]
+            const dataAddress = {
+                cep,
+                rua,
+                numero,
+                bairro,
+                cidade,
+                uf
+            }
             address.push(dataAddress);
-            console.log(dataAddress)
         
-
         const data = {
             name,
             cpf,
@@ -97,7 +95,7 @@ export default function Register() {
                 <img src={logo} alt="Nagem" />
                     <Link className="back-link" to="/Address">
                         <FiArrowLeft size={16} color="#3b5998" />
-                        Voltar para Inicio!
+                        Voltar para Endereços!
                     </Link>
                 </section>
 
