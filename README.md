@@ -1,7 +1,7 @@
 Este projeto foi inicializado com o aplicativo [Create React](https://github.com/facebook/create-react-app).
 
 ## Descrição do Projeto
-<p align="center">
+<p>
 O sistema Nagem - É um Front-End que realiza cadastro de Endereços.
 
 Os usuários poderão informar de 1 até 4 endereços.
